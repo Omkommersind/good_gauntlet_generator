@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from seeds.auth_user_seeder import AuthUserSeeder
+from seeds.games_seeder import GamesSeeder
 from seeds.group_seeder import GroupPermissionSeeder
 
 """ Clear all data and creates addresses """
@@ -24,5 +25,6 @@ class Command(BaseCommand):
         # SEED DATA
         GroupPermissionSeeder().create(refresh)
         AuthUserSeeder().create(refresh)
+        GamesSeeder().create(refresh)
 
         self.stdout.write("[DONE]\n")

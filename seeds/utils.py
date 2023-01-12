@@ -2,13 +2,13 @@ import csv
 import sys
 
 
-def seed_objects_from_csv(file_path: str, model):
+def seed_objects_from_csv(file_path: str, model, delimiter='|'):
     if model.objects.exists():
         sys.stdout.write("%s data exists [OK]\n" % model._meta.model_name)
         return
 
     with open(file_path, newline='', encoding='utf-8') as csv_file:
-        rows = csv.reader(csv_file, delimiter=',', quotechar='"')
+        rows = csv.reader(csv_file, delimiter=delimiter, quotechar='"')
         rows_iterator = iter(rows)
         header_row = next(rows_iterator, [])
         headers = [col_name for col_name in header_row]
@@ -16,6 +16,8 @@ def seed_objects_from_csv(file_path: str, model):
         objects = []
 
         for i, row in enumerate(rows_iterator):
+            if not row:
+                continue
             object_data = {}
             for j in range(cols_count):
                 data = row[j]

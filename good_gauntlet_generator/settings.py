@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 
     'seeds',
     'users.apps.UsersConfig',
+    'games.apps.GamesConfig',
 ]
 
 MIDDLEWARE = [

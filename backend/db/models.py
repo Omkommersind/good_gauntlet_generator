@@ -7,13 +7,6 @@ from backend.db.managers import SafeDeleteManager, BaseCustomManager
 
 
 class BaseModel(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid4,
-        unique=True,
-        editable=False
-    )
-
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)
