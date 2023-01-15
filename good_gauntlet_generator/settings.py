@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'seeds',
     'users.apps.UsersConfig',
     'games.apps.GamesConfig',
+    'gauntlets.apps.GauntletsConfig',
+    'landing.apps.LandingConfig',
 ]
 
 MIDDLEWARE = [
@@ -181,7 +183,7 @@ SIMPLE_JWT = {
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'en-EN'
 
 TIME_ZONE = 'UTC'
 
@@ -210,3 +212,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.UserModel'
 LOGS_LIVE_DAYS = 3
+
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "index"

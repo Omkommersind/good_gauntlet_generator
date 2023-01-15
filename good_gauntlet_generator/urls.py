@@ -9,6 +9,8 @@ from good_gauntlet_generator.urls_config.v1 import set_v1_urls
 urlpatterns = [
                   path('__debug__/', include(debug_toolbar.urls)),
                   path('admin/', admin.site.urls),
+                  path('', include('landing.urls')),
+                  path('accounts/', include('django.contrib.auth.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

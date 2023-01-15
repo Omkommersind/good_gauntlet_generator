@@ -10,7 +10,7 @@ class GamesSeeder:
             self.truncate_table()
 
         seed_objects_from_csv('static/platforms.csv', PlatformModel)
-        seed_objects_from_csv('static/games.csv', GameModel)
+        seed_objects_from_csv('static/games_nes.csv', GameModel)
 
     # TRUNCATE TABLE
     def truncate_table(self):

@@ -6,7 +6,7 @@ from users.models import UserModel
 
 
 class PlatformModel(BaseModel):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=128, unique=True)
 
     class Meta:
         verbose_name = 'Platform'
@@ -14,7 +14,7 @@ class PlatformModel(BaseModel):
 
 
 class GameModel(BaseModel):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=128, unique=True)
     platform = models.ForeignKey(PlatformModel, on_delete=models.CASCADE)
     difficulty = models.PositiveIntegerField(choices=DifficultiesEnum.choices, default=DifficultiesEnum.NORMAL)
     length = models.PositiveIntegerField(choices=LengthsEnum.choices, default=LengthsEnum.NORMAL)

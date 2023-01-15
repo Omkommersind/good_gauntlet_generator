@@ -13,6 +13,10 @@ class UserModel(AbstractUser, BaseModel):
     objects_v1 = UsersQuerySet.as_manager()
 
     def __str__(self):
+        if self.is_superuser:
+            return '[S] %s' % self.username
+        elif self.is_staff:
+            return '[M] %s' % self.username
         return str(self.username)
 
     class Meta:
