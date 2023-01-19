@@ -2,15 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from backend.db.models import BaseModel
-from users.versions.v1.querysets import UsersQuerySet
+from users.querysets import UsersQuerySet
 
 
 class UserModel(AbstractUser, BaseModel):
     first_name = None
     last_name = None
 
-    default_manager = UsersQuerySet.as_manager()
-    objects_v1 = UsersQuerySet.as_manager()
+    objects = UsersQuerySet.as_manager()
 
     def __str__(self):
         if self.is_superuser:

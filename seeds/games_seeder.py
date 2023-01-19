@@ -14,6 +14,6 @@ class GamesSeeder:
 
     # TRUNCATE TABLE
     def truncate_table(self):
-        GameModel.default_manager.all().delete()
+        GameModel.objects.all().delete()
         sys.stdout.write("Truncate games table ... [OK]\n")
 
