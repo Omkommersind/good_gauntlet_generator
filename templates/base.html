@@ -33,6 +33,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'index' %}">Home</a>
                     </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'user-detail' user.username %}">Profile</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">Gauntlets</a>
                     </li>
@@ -55,7 +60,7 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container p-5 main-container">
         {% block content %}{% endblock %}
     </div>
 

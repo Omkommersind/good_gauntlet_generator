@@ -8,5 +8,5 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='v1-token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='v1-token_verify'),
 
-    path('<str:username>', UserView.as_view()),
+    path('<str:username>', UserView.as_view(), name='user-detail'),
 ]

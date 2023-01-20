@@ -1,3 +1,7 @@
-html,body {
-    background-color: #ffeeca;
+body {
+    background-color: #212529 !important;
+}
+
+.main-container {
+    background-color: #fffcfc !important;
 }
