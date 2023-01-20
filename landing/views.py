@@ -2,7 +2,6 @@ from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render, redirect
 from landing.forms import NewUserForm
 from django.contrib.auth import login
-from django.contrib import messages
 
 
 def index(request):
@@ -20,7 +19,7 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')  # Todo: redirect to Registration success
+            return render(request=request, template_name="registration/registration_complete.html")
     else:
         form = NewUserForm()
     return render(request=request, template_name="registration/register.html", context={"form": form})

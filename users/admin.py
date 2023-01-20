@@ -10,7 +10,7 @@ class UserModelAdmin(UserAdmin):
     search_fields = ('id', 'username')
     fieldsets = (
         (None, {
-            'fields': ['name']
+            'fields': ['username', 'email', 'is_active']
         }),
     )
 

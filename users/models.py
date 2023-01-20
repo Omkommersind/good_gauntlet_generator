@@ -29,6 +29,7 @@ class UserModel(AbstractUser, BaseModel):
 def user_to_inactive(sender, instance, created, update_fields, **kwargs):
     if created:
         instance.is_active = False
+        instance.save()
 
 
 class JwtTokenModel(BaseModel):
