@@ -20,8 +20,7 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect('index')
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-    return render(request=request, template_name="registration/register.html", context={"register_form": form})
+            return redirect('index')  # Todo: redirect to Registration success
+    else:
+        form = NewUserForm()
+    return render(request=request, template_name="registration/register.html", context={"form": form})

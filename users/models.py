@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from backend.db.models import BaseModel
 from users.querysets import UsersQuerySet
@@ -21,6 +23,12 @@ class UserModel(AbstractUser, BaseModel):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+@receiver(post_save, sender=UserModel)
+def user_to_inactive(sender, instance, created, update_fields, **kwargs):
+    if created:
+        instance.is_active = False
 
 
 class JwtTokenModel(BaseModel):
