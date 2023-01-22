@@ -1,7 +1,6 @@
 from django.utils.crypto import get_random_string
 
 from backend.db.querysets import BaseCustomQuerySet
-from users.enums import GroupsEnum
 
 
 class UsersQuerySet(BaseCustomQuerySet):
@@ -24,3 +23,8 @@ class UsersQuerySet(BaseCustomQuerySet):
 
     def get_by_natural_key(self, username):
         return self.get(**{self.model.USERNAME_FIELD: username})
+
+    def activate_by_code(self, activation_code):
+        user = self.get(activation_code=activation_code)
+        user.is_active = True
+        user.save()

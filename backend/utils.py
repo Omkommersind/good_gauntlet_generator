@@ -2,27 +2,20 @@ import csv
 import json
 import random
 import string
-import time
 from collections import OrderedDict
-from typing import List
-
-import requests
-import urllib.error
-import urllib.parse
-
 from datetime import datetime, timedelta
 from functools import reduce
-
-from django.core.mail import EmailMessage
+from typing import List
 
 import pytz
+from django.core.mail import EmailMessage
 from django.template.loader import get_template
 from django.utils.safestring import SafeString
 from django.utils.timezone import make_aware
 from rest_framework import status
 
 from backend.exceptions import InternalServerException
-from fabula_server.settings import EMAIL_HOST_USER
+from good_gauntlet_generator.settings import EMAIL_HOST_USER
 
 
 def choices(em):
@@ -95,55 +88,14 @@ def send_email(subject: str, message: str, from_email: str, to_email: []):
 
 
 def send_formatted_email(subject: str, template_name: str, context: dict, to_email: list):
-    from django.core.mail import get_connection
-
-    connection = get_connection()
     try:
         message = get_template(template_name).render(context)
 
-        msg = EmailMessage(subject, message, from_email=f'Fabula <{EMAIL_HOST_USER}>', to=to_email)
+        msg = EmailMessage(subject, message, from_email=f'Game gauntlets generator <{EMAIL_HOST_USER}>', to=to_email)
         msg.content_subtype = "html"
         msg.send()
     except Exception as ex:
         raise InternalServerException(str(ex))
-
-
-def exponential_backoff_request(url: str, method: str, headers: dict = None, data: dict = None, params: dict = None):
-    if headers is None:
-        headers = {}
-    if params is None:
-        params = {}
-    if data is None:
-        data = {}
-    else:
-        data = json.dumps(data)
-
-    print('Executing external api request to ' + url)
-
-    current_delay = 0.1  # Set the initial retry delay to 100ms.
-    max_delay = 5  # Set the maximum retry delay to 5 seconds.
-
-    while True:
-        try:
-            # Get the API response.
-            response = requests.request(method, url, headers=headers, data=data, params=params)
-
-            # if response.status_code != 200:
-            #     print('Error external api request:')
-            #     print('Text: ', response.text)
-            #     print('URL: ' + url)
-            #     raise InternalServerException(json.loads(response.text))
-        except urllib.error.URLError:
-            pass  # Fall through to the retry loop.
-        else:
-            # If we didn't get an IOError then parse the result.
-            return response
-
-        if current_delay > max_delay:
-            raise InternalServerException('External service not responded')
-
-        time.sleep(current_delay)
-        current_delay *= 2  # Increase the delay each time we retry.
 
 
 def get_response_data(response):
