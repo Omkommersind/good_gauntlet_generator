@@ -24,9 +24,9 @@ class UserModel(AbstractUser, BaseModel):
             return '[M] %s' % self.username
         return str(self.username)
 
-    def save(self):
-        # Todo: check if existing email with not activated account exists, if so - delete not activated account before
-        pass
+    # def save(self):
+    #     # Todo: check if existing email with not activated account exists, if so - delete not activated account before
+    #     pass
 
     class Meta:
         verbose_name = 'User'

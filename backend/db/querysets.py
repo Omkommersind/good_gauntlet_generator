@@ -12,21 +12,3 @@ class BaseCustomQuerySet(QuerySet):
             raise NotFound(f'{self.model.__name__} with {kwargs_string} not found')
         except self.model.MultipleObjectsReturned:
             return self.filter(*args, **kwargs).last()
-
-
-class SafeDeleteQuerySet(BaseCustomQuerySet):
-    def delete(self):
-        return self.update(deleted_at=timezone.now())
-
-    def hard_delete(self):
-        return self.delete()
-
-    def alive(self):
-        return self.filter(deleted_at=None)
-
-    def dead(self):
-        return self.exclude(deleted_at=None)
-
-    def restore(self):
-        self.update(deleted_at=None, is_active=True)
-        return self
